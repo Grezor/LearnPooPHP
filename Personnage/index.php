@@ -7,6 +7,7 @@ var_dump($merlin->getNom());
 var_dump($merlin->getAtk());
 
 $merlin->setNom('Merlin l\'enchanteur');
+
 // $merlin->regenerer();
 // $merlin->attaque($harry);
 

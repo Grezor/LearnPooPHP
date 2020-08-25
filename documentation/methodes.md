@@ -17,3 +17,5 @@ dans le fichier index :
 ```php 
     Debutant::apprentissage()
 ```
+
+le self fait référence a $this
