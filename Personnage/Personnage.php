@@ -4,9 +4,9 @@ class Personnage {
     // private static $max_vie = 130
 
     // propriete
-    private $vie = 80;
-    private $atk = 20;
-    private $nom;
+    protected $vie = 80;
+    protected $atk = 20; 
+    protected $nom;
 
     public function __construct($nom)
     {
@@ -58,8 +58,8 @@ class Personnage {
        return $this->vie <= 0;
     }
 
-    public function attaque($cible){
-        $cible->vie -= $this->atk;
-        $cible->empecher_negatif();
-    }
+    // public function attaque($cible){
+    //     $cible->vie -= $this->atk;
+    //     $cible->empecher_negatif();
+    // }
 }

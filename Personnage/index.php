@@ -1,13 +1,16 @@
 <?php 
 require 'Personnage.php';
+require 'Archer.php';
+
 $merlin = new Personnage("Merlin");
 $harry = new Personnage('Harry');
+$arrow = new Archer('Oliver Queen');
 
+$merlin->setNom('Merlin l\'enchanteur');
 var_dump($merlin->getNom());
 var_dump($merlin->getAtk());
 
-$merlin->setNom('Merlin l\'enchanteur');
-
+$arrow->attaque($harry);
 // $merlin->regenerer();
 // $merlin->attaque($harry);
 
@@ -18,6 +21,5 @@ $merlin->setNom('Merlin l\'enchanteur');
 //     echo 'harry est vivant avec' . $harry->vie ;
 // }
 
-echo '<pre>';
-var_dump($merlin, $harry);
-echo '</pre>';
+
+var_dump($merlin, $harry, $arrow);
