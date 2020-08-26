@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,10 @@
     
 
 <?php 
-require_once('form.php');
-require_once('BootstrapForm.php');
-require_once('text.php');
+require('class/Autoloader.php');
+Autoloader::register();
+
+
 $form = new BootstrapForm($_POST);
 // var_dump(Text::withZero(10))
 ?>
