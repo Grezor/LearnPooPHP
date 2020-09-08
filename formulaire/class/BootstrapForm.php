@@ -1,5 +1,5 @@
 <?php
-class BootstrapForm extends Form {
+class BootstrapForm extends \Tutoriel\Form {
 
     /**
      * @param $html string Code HTML a entourer 

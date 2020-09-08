@@ -1,3 +1,7 @@
+<?php
+use \Tutoriel\Autoloader;
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +16,10 @@
 
 <?php 
 require('class/Autoloader.php');
-Autoloader::register();
+Tutoriel\Form\Autoloader::register();
 
 
-$form = new BootstrapForm($_POST);
+$form = new Tutoriel\BootstrapForm($_POST);
 // var_dump(Text::withZero(10))
 ?>
 
