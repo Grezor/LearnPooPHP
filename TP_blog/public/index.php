@@ -8,6 +8,8 @@ if(isset($_GET['p'])){
 } else {
     $p = 'home';
 }
+// initialisation des objects
+$db = new App\Database('blog');
 
 ob_start();
 if($p === 'home'){
