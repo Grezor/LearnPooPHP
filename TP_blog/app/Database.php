@@ -28,11 +28,26 @@ class Database {
         return $this->pdo;
     }
 
-    public function query($statement) 
-    {
-        $req = $this->getPDO()->query($statement);
-        $datas = $req->fetchAll(PDO::FETCH_OBJ);
+    public function query($statement, $class_name, $one = false){
+        $requete = $this->getPDO()->query($statement);
+        $requete->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one ){
+            $datas = $requete->fetch();
+        }else{
+            $datas = $requete->fetchAll();
+        }
         return $datas;
     }
 
+    public function prepare($statement, $attributes, $class_name, $one= false){
+        $requete = $this->getPDO()->prepare($statement);
+        $requete->execute($attributes);
+        $requete->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one ){
+            $datas = $requete->fetch();
+        }else{
+            $datas = $requete->fetchAll();
+        }
+        return $datas;
+    }
 }
