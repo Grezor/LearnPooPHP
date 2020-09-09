@@ -1,7 +1,13 @@
 <?php 
 namespace App\Table;
+use App\App;
 
 class Article {
+
+    public static function getLast()
+    {
+        return App::getDatabase()->query('SELECT * FROM articles', __CLASS__);
+    }
 
     public function __get($key)
     {
@@ -18,7 +24,7 @@ class Article {
     public function getExtrait()
     {
         $html = '<p>'. substr($this->contenu,0, 100) .'...</p>';
-        $html .= '<p><a href="'. $this->getUrl() .'">Voir la suite</a></p>';
+        $html .= '<p><a href="'. $this->getURL() .'">Voir la suite</a></p>';
         return $html;
     }
 }
