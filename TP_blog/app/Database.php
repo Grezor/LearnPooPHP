@@ -29,25 +29,30 @@ class Database {
     }
 
     public function query($statement, $class_name, $one = false){
-        $requete = $this->getPDO()->query($statement);
-        $requete->setFetchMode(PDO::FETCH_CLASS, $class_name);
-        if ($one ){
-            $datas = $requete->fetch();
+        $req = $this->getPDO()->query($statement);
+        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one){
+            $datas = $req->fetch();
         }else{
-            $datas = $requete->fetchAll();
+            $datas = $req->fetchAll();
         }
         return $datas;
     }
 
     public function prepare($statement, $attributes, $class_name, $one= false){
-        $requete = $this->getPDO()->prepare($statement);
-        $requete->execute($attributes);
-        $requete->setFetchMode(PDO::FETCH_CLASS, $class_name);
-        if ($one ){
-            $datas = $requete->fetch();
+        $req = $this->getPDO()->prepare($statement);
+        $req->execute($attributes);
+        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one){
+            $datas = $req->fetch();
         }else{
-            $datas = $requete->fetchAll();
+            $datas = $req->fetchAll();
         }
         return $datas;
+    }
+
+    public function notFound(){
+        header("HTTP/1.0 404 Not Found");
+        header('Location:index.php?p=404');
     }
 }
