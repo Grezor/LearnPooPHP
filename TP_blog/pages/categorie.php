@@ -1,14 +1,15 @@
 <?php
-use App\App;
+
 use App\Table\Article;
 use App\Table\Categorie;
 
 $categorie = Categorie::find($_GET['id']);
+if ($categorie === false) {
+    \App\App::notFound()
+}
 $articles = Article::lastByCategory($_GET['id']);
 $categories = Categorie::all();
-if($categorie === false){
-    App::notFound();
-}
+
 ?>
 <h1><?= $categorie->titre ?></h1>
 

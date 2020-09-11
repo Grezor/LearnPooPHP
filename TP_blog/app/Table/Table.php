@@ -1,24 +1,30 @@
 <?php 
 namespace App\Table;
 use App\App;
-
+use \PDO;
 class Table {
+    
     protected static $table;
 
-    private static function getTable()
-    {
-        if (static::$table === null) {
-            $class_name = explode('\\', get_called_class());
-            static::$table = strtolower(end($class_name)) . 's';
-        }
-        return static::$table;
-    }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
     public static function find($id)
     {
-        return App::getDatabase()->prepare("SELECT * FROM " . static::getTable() . " WHERE id = ? ", [$id], get_called_class(), true);
+        return static::query("SELECT * FROM " . static::$table . "WHERE id = ? ", [$id], true);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $statement
+     * @param [type] $attributes
+     * @param boolean $one, s on veux recuperer que un seule, par default false
+     * @return void
+     */
     public static function query($statement, $attributes = null, $one = false){
         if ($attributes) {
             return App::getDatabase()->prepare($statement, $attributes, get_called_class(), $one);
@@ -30,8 +36,9 @@ class Table {
 
     public static function all()
     {
-        return App::getDatabase()->query("SELECT * FROM " . static::getTable() . " ", get_called_class());
+        return App::getDatabase()->query("SELECT * FROM " . self::$table . " ", get_called_class());
     }
+
 
     public function __get($key)
     {

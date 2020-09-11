@@ -1,15 +1,16 @@
 <?php 
 use App\App;
-use App\Table\Post;
-use \App\Table\Article;
+use App\Table\Article;
+use App\Table\Categorie;
 
-    $post = Post::find($_GET['id']);
-    if($_POST === false){
-       App::notFound();
-    }
-    $categorie = Categorie::find($post->category_id);
+$post = Article::find($_GET['id']);
+if ($post === false) {
+    App::notFound();
+}
+App::setTitle($post->titre);
+
 ?>
 
 <h2><?= $post->titre ?></h2>
-<h2><?= $categorie->titre; ?></h2>
+<h2><?= $post->categorie; ?></h2>
 <p><?= $post->contenu ?></p>

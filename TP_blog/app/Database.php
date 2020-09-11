@@ -17,7 +17,11 @@ class Database {
         $this->$db_pass = $db_pass;
         $this->$db_host = $db_host;
     }
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function getPDO()
     {
         if ($this->pdo === null) {
@@ -27,10 +31,17 @@ class Database {
         }
         return $this->pdo;
     }
-
+    /**
+     * Undocumented function
+     *
+     * @param [type] $statement
+     * @param [type] $class_name
+     * @param boolean $one
+     * @return void
+     */
     public function query($statement, $class_name, $one = false){
         $req = $this->getPDO()->query($statement);
-        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        $datas = $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
         if ($one){
             $datas = $req->fetch();
         }else{
@@ -39,7 +50,16 @@ class Database {
         return $datas;
     }
 
-    public function prepare($statement, $attributes, $class_name, $one= false){
+    /**
+     * Undocumented function
+     *
+     * @param [type] $statement
+     * @param [type] $attributes
+     * @param [type] $class_name
+     * @param boolean $one (default false)
+     * @return void
+     */
+    public function prepare($statement, $attributes, $class_name, $one = false){
         $req = $this->getPDO()->prepare($statement);
         $req->execute($attributes);
         $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
@@ -51,8 +71,4 @@ class Database {
         return $datas;
     }
 
-    public function notFound(){
-        header("HTTP/1.0 404 Not Found");
-        header('Location:index.php?p=404');
-    }
 }

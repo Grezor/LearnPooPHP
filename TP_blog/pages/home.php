@@ -13,12 +13,9 @@
 
         <?php endforeach; ?>
     </div>
-
     <div class="col-sm-4">
-
-            <?php foreach (Categorie::all() as $categorie): ?>
-        <ul><li><a href="<?= $categorie->url; ?>"><?= $categorie->titre; ?></a></li>    </ul>
-            <?php endforeach; ?>
-
+        <?php foreach(Categorie::all() as $categorie): ?>
+        <li><a href="<?= $categorie->url; ?>"><?= $categorie->titre; ?></a></li>
+        <?php endforeach; ?>
     </div>
 </div>
