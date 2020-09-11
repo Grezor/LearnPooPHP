@@ -1,74 +1,64 @@
 <?php
+
 namespace App;
+
 use \PDO;
 
-class Database {
-
+class Database
+{
     private $db_name;
     private $db_user;
-    private $db_pass;
+    private $dbpass;
     private $db_host;
     private $pdo;
 
-    public function __construct($db_name, $db_user = 'root', $db_pass = '', $db_host = 'localhost')
+    public function __construct($db_name, $db_user = 'root', $dbpass = '', $db_host = 'localhost')
     {
-        $this->$db_name = $db_name;
-        $this->$db_user = $db_user;
-        $this->$db_pass = $db_pass;
-        $this->$db_host = $db_host;
+        $this->db_name = $db_name;
+        $this->db_user = $db_user;
+        $this->dbpass = $dbpass;
+        $this->db_host = $db_host;
     }
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function getPDO()
+
+    private function getPDO()
     {
         if ($this->pdo === null) {
-            $pdo = new PDO('mysql:dbname=blog_poo;host:localhost', 'root', '');
+            $pdo = new PDO('mysql:dbname=blog_poo;host=localhost', 'root', '');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo = $pdo;
         }
         return $this->pdo;
     }
-    /**
-     * Undocumented function
-     *
-     * @param [type] $statement
-     * @param [type] $class_name
-     * @param boolean $one
-     * @return void
-     */
-    public function query($statement, $class_name, $one = false){
+
+    public function query($statement, $class_name, $one = false)
+    {
         $req = $this->getPDO()->query($statement);
-        $datas = $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
-        if ($one){
-            $datas = $req->fetch();
-        }else{
-            $datas = $req->fetchAll();
+
+        $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        if ($one) {
+            $datas = $req->fetch(PDO::FETCH_CLASS, $class_name);
+        } else {
+            $datas = $req->fetchAll(PDO::FETCH_CLASS, $class_name);
         }
         return $datas;
+
     }
 
     /**
-     * Undocumented function
-     *
-     * @param [type] $statement
-     * @param [type] $attributes
-     * @param [type] $class_name
-     * @param boolean $one (default false)
-     * @return void
+     * afficher l'article complet dans single
      */
-    public function prepare($statement, $attributes, $class_name, $one = false){
+    public function prepare($statement, $attribute, $class_name, $one = false)
+    {
         $req = $this->getPDO()->prepare($statement);
-        $req->execute($attributes);
+        $req->execute($attribute);
         $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
-        if ($one){
-            $datas = $req->fetch();
-        }else{
-            $datas = $req->fetchAll();
-        }
-        return $datas;
-    }
+        if ($one) {
+            $data = $req->fetch();
+        } else {
+            $data = $req->fetchAll();
 
-}
+        }
+        return $data;
+
+    }
+} 

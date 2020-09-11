@@ -1,49 +1,45 @@
-<?php 
+<?php
+
 namespace App\Table;
+
 use App\App;
-use \PDO;
+
 class Table {
-    
-    protected static $table;
-
-    /**
-     * Undocumented function
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public static function find($id)
-    {
-        return static::query("SELECT * FROM " . static::$table . "WHERE id = ? ", [$id], true);
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param [type] $statement
-     * @param [type] $attributes
-     * @param boolean $one, s on veux recuperer que un seule, par default false
-     * @return void
-     */
-    public static function query($statement, $attributes = null, $one = false){
-        if ($attributes) {
-            return App::getDatabase()->prepare($statement, $attributes, get_called_class(), $one);
-        } else {
-            return App::getDatabase()->query($statement, get_called_class(), $one);
-        }
-      
-    }
 
     public static function all()
     {
-        return App::getDatabase()->query("SELECT * FROM " . self::$table . " ", get_called_class());
+        return App::getDb()->query("
+        SELECT *                        
+        FROM " . static::$table . " 
+         ", get_called_class());
     }
 
-
+    /**
+     * ucfirst — Met le premier caractère en majuscule
+     */
     public function __get($key)
     {
         $method = 'get' . ucfirst($key);
         $this->$key = $this->$method();
-        return $this->$key();
+        return $this->$key;
     }
-}
+
+    // pour categories
+
+    public static function find($id)
+    {
+        return static::query("SELECT * FROM " . static::$table . " WHERE id = ? ", [$id], true);
+    }
+
+
+    // permet de changer le type de requete sois prepare soit query
+
+    public static function query($statement, $attributes = null, $one = false)
+    {
+        if ($attributes) {
+            return App::getDb()->prepare($statement, $attributes, get_called_class(), $one);
+        } else {
+            return App::getDb()->query($statement, get_called_class(), $one);
+        }
+    }
+} 

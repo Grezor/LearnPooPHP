@@ -1,41 +1,47 @@
-<?php 
+<?php
+
 namespace App;
 
-class App {
+class App
+{
 
     const DB_NAME = 'blog';
     const DB_USER = 'root';
-    const DB_PASS = ''; 
+    const DB_PASS = '';
     const DB_HOST = 'localhost';
 
-    private static $database;
-    private static $title = 'Mon super Site';
 
-    public static function getDatabase(){
+    private static $database;
+    private static $titleOnglet = 'Mon super site';
+
+    // connexion a al base de donnée
+    public static function getDb()
+    {
         if (self::$database === null) {
             self::$database = new Database(self::DB_NAME, self::DB_USER, self::DB_PASS, self::DB_HOST);
         }
         return self::$database;
     }
 
-    /**
-     * Function NotFound
-     * Permet de retourner une page 404
-     * @return void
-     */
-    public static function notFound(){
+    public static function notFound()
+    {
         header("HTTP/1.0 404 Not Found");
         header('Location:index.php?p=404');
     }
 
-    public static function getTitle()
+    // affiche le nom de la categorie dans l'onglet
+    /**
+     * Return le titre de l'article
+     * @return string
+     */
+    public static function getTitleOnglet()
     {
-        return self::$title;
+        return self::$titleOnglet;
     }
 
-    public static function setTitle($title)
+    public static function setTitleOnglet($title)
     {
-        self::$title = $title;
+        self::$titleOnglet = $title;
     }
 
-}
+} 
