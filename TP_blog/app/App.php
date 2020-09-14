@@ -4,44 +4,17 @@ namespace App;
 
 class App
 {
+    private static $_instance;
+    public $title = "mon super site";
 
-    const DB_NAME = 'blog';
-    const DB_USER = 'root';
-    const DB_PASS = '';
-    const DB_HOST = 'localhost';
-
-
-    private static $database;
-    private static $titleOnglet = 'Mon super site';
-
-    // connexion a al base de donnée
-    public static function getDb()
+    public static function getInstance()
     {
-        if (self::$database === null) {
-            self::$database = new Database(self::DB_NAME, self::DB_USER, self::DB_PASS, self::DB_HOST);
+        if (is_null(self::$_instance)) {
+            self::$_instance = new App();
         }
-        return self::$database;
+        return self::$_instance;
     }
 
-    public static function notFound()
-    {
-        header("HTTP/1.0 404 Not Found");
-        header('Location:index.php?p=404');
-    }
 
-    // affiche le nom de la categorie dans l'onglet
-    /**
-     * Return le titre de l'article
-     * @return string
-     */
-    public static function getTitleOnglet()
-    {
-        return self::$titleOnglet;
-    }
-
-    public static function setTitleOnglet($title)
-    {
-        self::$titleOnglet = $title;
-    }
 
 } 
