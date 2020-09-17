@@ -1,45 +1,16 @@
 <?php
-
 namespace App\Table;
-
-use App\App;
-
 class Table {
 
-    public static function all()
+    protected $table;
+
+    public function __construct()
     {
-        return App::getDb()->query("
-        SELECT *                        
-        FROM " . static::$table . " 
-         ", get_called_class());
-    }
-
-    /**
-     * ucfirst — Met le premier caractère en majuscule
-     */
-    public function __get($key)
-    {
-        $method = 'get' . ucfirst($key);
-        $this->$key = $this->$method();
-        return $this->$key;
-    }
-
-    // pour categories
-
-    public static function find($id)
-    {
-        return static::query("SELECT * FROM " . static::$table . " WHERE id = ? ", [$id], true);
-    }
-
-
-    // permet de changer le type de requete sois prepare soit query
-
-    public static function query($statement, $attributes = null, $one = false)
-    {
-        if ($attributes) {
-            return App::getDb()->prepare($statement, $attributes, get_called_class(), $one);
-        } else {
-            return App::getDb()->query($statement, get_called_class(), $one);
+        //on verifie si la table es defini
+        if (is_null($this->table)) {
+            $parts = explode('\\', get_class($this));
+            $class_name = end($parts);
+            $this->table = strtolower(str_replace('Table', '', $class_name));
         }
     }
-} 
+}

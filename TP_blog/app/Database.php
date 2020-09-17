@@ -61,4 +61,13 @@ class Database
         return $data;
 
     }
+    /**
+     * Charge la configuration
+     *
+     * @return void
+     */
+    public function getDb(){
+        $config = Config::getInstance();
+        return new Database($config->get('db_name'),$config->get('db_user'), $config->get('db_pass'), $config->get('db_host'));
+    }
 } 
