@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Database;
 
 use \PDO;
 
-class Database
+class MysqlDatabase extends Database
 {
     private $db_name;
     private $db_user;
@@ -30,10 +30,15 @@ class Database
         return $this->pdo;
     }
 
-    public function query($statement, $class_name, $one = false)
+    public function query($statement, $class_name = null, $one = false)
     {
         $req = $this->getPDO()->query($statement);
-
+        if($class_name === null){
+            $req->setFetchMode(PDO::FETCH_OBJ);
+        } else {
+            $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
+        }
+        
         $req->setFetchMode(PDO::FETCH_CLASS, $class_name);
         if ($one) {
             $datas = $req->fetch(PDO::FETCH_CLASS, $class_name);
@@ -61,13 +66,5 @@ class Database
         return $data;
 
     }
-    /**
-     * Charge la configuration
-     *
-     * @return void
-     */
-    public function getDb(){
-        $config = Config::getInstance();
-        return new Database($config->get('db_name'),$config->get('db_user'), $config->get('db_pass'), $config->get('db_host'));
-    }
+
 } 

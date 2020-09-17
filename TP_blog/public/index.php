@@ -9,6 +9,7 @@ require '../app/Autoloader.php';
 $app = App\App::getInstance();
 // factory
 $post = $app->getTable('Posts');
+var_dump($post->all());
 
 
 
