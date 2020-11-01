@@ -1,3 +1,3 @@
 <?php 
 
-CarFactory::getCar('4x4')
+// CarFactory::getCar('4x4')
