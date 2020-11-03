@@ -12,8 +12,7 @@ $categories = $app->getTable('Category')->all();
 <h1><?= $categorie->titre; ?></h1>
 <div class="row">
     <div class="col-sm-8">
-        <?php
-        foreach ($article as $post): ?>
+        <?php foreach ($article as $post): ?>
             <h5><a href="<?= $post->url; ?>"><?= $post->titre; ?></a></h5>
             <p><em><?= $post->categorie; ?></em></p>
             <p><?= $post->extrait; ?></p>

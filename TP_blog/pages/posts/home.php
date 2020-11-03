@@ -17,7 +17,7 @@
     <div class="col-sm-4">
 
             <?php foreach (App::getInstance()->getTable('Category')->all() as $categorie): ?>
-        <ul><li><a href="<?= $categorie->url; ?>"><?= $categorie->titre; ?></a></li>    </ul>
+                <ul><li><a href="<?= $categorie->url; ?>"><?= $categorie->titre; ?></a></li>    </ul>
             <?php endforeach; ?>
 
     </div>
